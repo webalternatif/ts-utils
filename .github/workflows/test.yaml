@@ -1,0 +1,54 @@
+name: test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build_test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - "14.x"
+          - "16.x"
+          - "18.x"
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: yarn install --no-progress
+
+      - name: Run tsc
+        run: yarn build:check
+
+      - name: Run jest
+        run: yarn test:jest
+
+  lint_cs:
+    name: Lint and check code style
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install Dependencies
+        run: yarn install --no-progress
+
+      - name: Run eslint
+        run: yarn lint
+
+      - name: Run prettier
+        run: yarn prettier:check
