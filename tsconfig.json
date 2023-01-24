@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "esModuleInterop": true,
+    "removeComments": true,
+    "strict": true
+  },
+  "exclude": ["src/**/*.test.*"],
+  "include": ["src/**/*"]
+}
