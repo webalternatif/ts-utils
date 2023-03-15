@@ -22,6 +22,7 @@ export { default as lcfirst } from './string/lcfirst';
 export { default as ucfirst } from './string/ucfirst';
 
 export { default as isArray } from './test/isArray';
+export { default as isArrayOf } from './test/isArrayOf';
 export { default as isBoolean, default as isBool } from './test/isBoolean';
 export { default as isDate } from './test/isDate';
 export { default as isDocument } from './test/isDocument';
