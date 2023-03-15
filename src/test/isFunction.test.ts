@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import isFunction from './isFunction';
+import { expectNotType, expectType } from 'tsd';
 
 describe('isFunction', () => {
   it('must return true only when a function is given', () => {
@@ -16,5 +17,17 @@ describe('isFunction', () => {
     expect(isFunction(undefined)).toBe(false);
     expect(isFunction(() => {})).toBe(true);
     expect(isFunction(function () {})).toBe(true);
+  });
+
+  it("must keep the function's type in the satisfied branch", () => {
+    const maybeF = Math.random() ? (a: number, b: number): number => a + b : 42;
+
+    if (isFunction(maybeF)) {
+      expectType<(a: number, b: number) => number>(maybeF);
+      expectNotType<42>(maybeF);
+    } else {
+      expectNotType<(a: number, b: number) => number>(maybeF);
+      expectType<42>(maybeF);
+    }
   });
 });

@@ -1,8 +1,7 @@
 /**
  * Returns whether the given value is a function or not.
  */
-export default function isFunction(
-  value: unknown
-): value is (...args: Array<unknown>) => unknown {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export default function isFunction(value: unknown): value is Function {
   return typeof value === 'function';
 }
